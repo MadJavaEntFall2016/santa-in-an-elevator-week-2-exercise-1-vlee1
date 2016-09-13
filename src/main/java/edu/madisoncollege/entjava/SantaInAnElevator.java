@@ -1,6 +1,13 @@
 package edu.madisoncollege.entjava;
 
 
+import org.apache.log4j.Logger;
+
+import java.io.*;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by paulawaite on 9/7/16.
  *
@@ -31,11 +38,105 @@ package edu.madisoncollege.entjava;
  *
  * When submitting your code, include screenshots showing
  * 1) The answer, i.e., what floor is Santa on?
+ *      ANSWER: 138
  * 2) How much code coverage you achieved (what percent?).
+ *      PERCENTAGE: 7%~10%
  *
  */
 
 public class SantaInAnElevator {
+
+    private final Logger logger = Logger.getLogger(this.getClass());
+    private List<Character> tokens;
+
+    /**
+     *  Reads text file
+     *
+     *  @param fileInput text file
+     */
+    public void readFile(String fileInput)
+    {
+        tokens = new ArrayList<Character>();
+        try
+        {
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(
+                            new FileInputStream(fileInput),
+                            Charset.forName("UTF-8")));
+
+            int c;
+
+            while((c = reader.read()) != -1)
+            {
+                char character = (char) c;
+                tokens.add(character);
+            }
+
+            readFloors(tokens);
+
+        }
+        catch (FileNotFoundException e)
+        {
+            for (StackTraceElement element : e.getStackTrace())
+            {
+                logger.error(element);
+            }
+        }
+        catch (IOException e)
+        {
+            for (StackTraceElement element : e.getStackTrace())
+            {
+                logger.error(element);
+            }
+        }
+    }
+
+    /**
+     * Reads list
+     *
+     * @param floors list of characters
+     */
+    public void readFloors(List<Character> floors)
+    {
+        int floor = 0;
+        for (Character element : floors)
+        {
+            if (element.toString().equals("("))
+            {
+                floor = floor + 1;
+            }
+            if (element.toString().equals(")"))
+            {
+                floor = floor -1;
+            }
+        }
+
+        logger.info("Floor:" + floor);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
