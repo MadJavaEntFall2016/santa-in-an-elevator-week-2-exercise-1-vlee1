@@ -54,11 +54,8 @@ public class SantaInAnElevator {
      *
      *  @param fileInput text file
      */
-    public void readFile(String fileInput)
-    {
+    public void readFile(String fileInput) throws IOException {
         tokens = new ArrayList<Character>();
-        try
-        {
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(
                             new FileInputStream(fileInput),
@@ -73,9 +70,7 @@ public class SantaInAnElevator {
             }
 
             readFloors(tokens);
-
-        }
-        catch (FileNotFoundException e)
+        /* catch (FileNotFoundException e)
         {
             for (StackTraceElement element : e.getStackTrace())
             {
@@ -88,7 +83,7 @@ public class SantaInAnElevator {
             {
                 logger.error(element);
             }
-        }
+        }*/
     }
 
     /**
@@ -96,7 +91,7 @@ public class SantaInAnElevator {
      *
      * @param floors list of characters
      */
-    public void readFloors(List<Character> floors)
+    public int readFloors(List<Character> floors)
     {
         int floor = 0;
         for (Character element : floors)
@@ -112,6 +107,7 @@ public class SantaInAnElevator {
         }
 
         logger.info("Floor:" + floor);
+        return floor;
     }
 
 
